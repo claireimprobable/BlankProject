@@ -16,6 +16,8 @@ namespace Assets.Gamelogic.Core
         public static readonly uint TotalHeartbeatsBeforeTimeout = 3;
         public static readonly float HeartbeatSendingIntervalSecs = 3;
 
+        public static readonly float ClientConnectionTimeoutSecs = 7;
+
         public static readonly float PlayerCreatorQueryRetrySecs = 4;
         public static readonly float PlayerEntityCreationRetrySecs = 4;
 

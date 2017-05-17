@@ -27,6 +27,7 @@ namespace Assets.Gamelogic.Core
                 case WorkerPlatform.UnityWorker:
                     Application.targetFrameRate = SimulationSettings.TargetServerFramerate;
                     SpatialOS.OnDisconnected += reason => Application.Quit();
+                    SpatialOS.Connect(gameObject);
                     break;
                 case WorkerPlatform.UnityClient:
                     Application.targetFrameRate = SimulationSettings.TargetClientFramerate;
@@ -35,6 +36,11 @@ namespace Assets.Gamelogic.Core
             }
 
             // Enable communication with the SpatialOS layer of the simulation.
+            //SpatialOS.Connect(gameObject);
+        }
+
+        public void ConnectToClient()
+        {
             SpatialOS.Connect(gameObject);
         }
 

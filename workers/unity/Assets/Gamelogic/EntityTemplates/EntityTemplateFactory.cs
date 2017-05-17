@@ -32,13 +32,13 @@ namespace Assets.Gamelogic.EntityTemplates
 
             playerTemplate.Add(new WorldTransform.Data(Coordinates.ZERO, new Quaternion(0, 0, 0, 0)));
             playerTemplate.Add(new ClientConnection.Data());
-            //playerTemplate.Add(new HeartbeatCounter.Data(SimulationSettings.TotalHeartbeatsBeforeTimeout));
+            playerTemplate.Add(new HeartbeatCounter.Data(SimulationSettings.TotalHeartbeatsBeforeTimeout));
 
             var acl = Acl.Build()
                 .SetReadAccess(CommonRequirementSets.PhysicsOrVisual)
-                .SetWriteAccess<WorldTransform>(CommonRequirementSets.PhysicsOnly);
-                         //.SetWriteAccess<ClientConnection>(CommonRequirementSets.SpecificClientOnly(clientId));
-            //             .SetWriteAccess<HeartbeatCounter>(CommonRequirementSets.PhysicsOnly);
+                .SetWriteAccess<WorldTransform>(CommonRequirementSets.PhysicsOnly)
+                .SetWriteAccess<ClientConnection>(CommonRequirementSets.SpecificClientOnly(clientId))
+                .SetWriteAccess<HeartbeatCounter>(CommonRequirementSets.PhysicsOnly);
             playerTemplate.SetAcl(acl);
 
             return playerTemplate;

@@ -4,6 +4,7 @@ using Improbable.Player;
 using Improbable.Unity;
 using Improbable.Unity.Visualizer;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Gamelogic.Player
 {
@@ -16,6 +17,7 @@ namespace Assets.Gamelogic.Player
         private Coroutine heartbeatCoroutine;
         private void OnEnable()
         {
+            SceneManager.UnloadSceneAsync(BuildSettings.SplashScreenScene);
             heartbeatCoroutine = StartCoroutine(TimerUtils.CallRepeatedly(SimulationSettings.HeartbeatSendingIntervalSecs, SendHeartbeat));
         }
 
