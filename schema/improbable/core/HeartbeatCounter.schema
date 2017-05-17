@@ -1,0 +1,6 @@
+package improbable.player;
+
+component HeartbeatCounter {
+    id = 1003;
+    uint32 timeout_beats_remaining = 1;
+}

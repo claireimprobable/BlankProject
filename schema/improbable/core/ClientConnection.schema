@@ -1,0 +1,8 @@
+package improbable.player;
+
+type Heartbeat{}
+
+component ClientConnection {
+    id = 1002;
+    event Heartbeat heartbeat;
+}

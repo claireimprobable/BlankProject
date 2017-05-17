@@ -4,6 +4,7 @@ using Improbable.Worker;
 using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.IO;
+using Assets.Gamelogic.EntityTemplates;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,9 +18,12 @@ namespace Assets.Editor
 		{
 			var snapshotEntities = new Dictionary<EntityId, SnapshotEntity>();
 
-			// Add entity data to the snapshot
+		    var currentEntityId = 1;
 
-			SaveSnapshot(snapshotEntities);
+		    snapshotEntities.Add(new EntityId(currentEntityId++), EntityTemplateFactory.CreatePlayerCreatorTemplate());
+		    snapshotEntities.Add(new EntityId(currentEntityId++), EntityTemplateFactory.CreateCubeTemplate());
+
+            SaveSnapshot(snapshotEntities);
 		}
 
 		private static void SaveSnapshot(IDictionary<EntityId, SnapshotEntity> snapshotEntities)
