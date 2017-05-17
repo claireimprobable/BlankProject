@@ -36,7 +36,7 @@ namespace Assets.Gamelogic.EntityTemplates
 
             var acl = Acl.Build()
                 .SetReadAccess(CommonRequirementSets.PhysicsOrVisual)
-                .SetWriteAccess<WorldTransform>(CommonRequirementSets.PhysicsOnly)
+                .SetWriteAccess<WorldTransform>(CommonRequirementSets.SpecificClientOnly(clientId))
                 .SetWriteAccess<ClientConnection>(CommonRequirementSets.SpecificClientOnly(clientId))
                 .SetWriteAccess<HeartbeatCounter>(CommonRequirementSets.PhysicsOnly);
             playerTemplate.SetAcl(acl);
@@ -56,6 +56,20 @@ namespace Assets.Gamelogic.EntityTemplates
             cubeTemplate.SetAcl(acl);
 
             return cubeTemplate;
+        }
+
+        public static SnapshotEntity CreateTreeTemplate()
+        {
+            var treeTemplate = new SnapshotEntity { Prefab = SimulationSettings.TreePrefabName };
+
+            treeTemplate.Add(new WorldTransform.Data(new Coordinates(0, 0, 5), new Quaternion(0, 0, 0, 0)));
+
+            var acl = Acl.Build()
+                .SetReadAccess(CommonRequirementSets.PhysicsOrVisual)
+                .SetWriteAccess<WorldTransform>(CommonRequirementSets.PhysicsOnly);
+            treeTemplate.SetAcl(acl);
+
+            return treeTemplate;
         }
     }
 }
