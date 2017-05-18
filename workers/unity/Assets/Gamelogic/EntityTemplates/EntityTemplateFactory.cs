@@ -1,7 +1,9 @@
 ﻿using Assets.Gamelogic.Core;
 using Improbable.Core;
+using Improbable.Fire;
 using Improbable.Math;
 using Improbable.Player;
+using Improbable.Tree;
 using Improbable.Unity.Core.Acls;
 using Improbable.Worker;
 using UnityEngine;
@@ -58,15 +60,17 @@ namespace Assets.Gamelogic.EntityTemplates
             return cubeTemplate;
         }
 
-        public static SnapshotEntity CreateTreeTemplate()
+        public static SnapshotEntity CreateTreeTemplate(Coordinates coordinates)
         {
             var treeTemplate = new SnapshotEntity { Prefab = SimulationSettings.TreePrefabName };
 
-            treeTemplate.Add(new WorldTransform.Data(new Coordinates(0, 0, 5), new Quaternion(0, 0, 0, 0)));
+            treeTemplate.Add(new WorldTransform.Data(coordinates, new Quaternion(0, 0, 0, 0)));
+            treeTemplate.Add(new TreeState.Data(TreeFSMState.HEALTHY));
 
             var acl = Acl.Build()
                 .SetReadAccess(CommonRequirementSets.PhysicsOrVisual)
-                .SetWriteAccess<WorldTransform>(CommonRequirementSets.PhysicsOnly);
+                .SetWriteAccess<WorldTransform>(CommonRequirementSets.PhysicsOnly)
+                .SetWriteAccess<TreeState>(CommonRequirementSets.PhysicsOnly);
             treeTemplate.SetAcl(acl);
 
             return treeTemplate;
