@@ -40,7 +40,7 @@ namespace Assets.Gamelogic.Core
         public static float TreeIgnitionTimeBuffer = 0.4f;
         public static float TreeExtinguishTimeBuffer = 1f;
         public static float TreeCutDownTimeBuffer = 1f;
-        public static float TreeSpontaneouslyCombustChance = 0.001f;
+        public static float TreeSpontaneouslyCombustChance = 0.00001f;
 
         // Resource Prefab Paths
         public static string FireEffectPrefabPath = "Particles/Fire";

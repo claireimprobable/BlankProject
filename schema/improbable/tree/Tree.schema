@@ -11,6 +11,6 @@ type IgniteResponse {}
 
 component TreeState {
   id = 1600;
-  TreeStatus status = 2;
+  TreeStatus status = 1;
   command IgniteResponse ignite(IgniteRequest);
 }
