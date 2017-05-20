@@ -9,26 +9,17 @@ namespace Assets.Gamelogic.Fire
     [WorkerType(WorkerPlatform.UnityClient)]
     public class FlammableVisualizer : MonoBehaviour
     {
-        [Require]
-        private Flammable.Reader flammable;
+        [Require] private Flammable.Reader flammable;
 
         private GameObject fireEffectInstance;
         private ParticleSystem fireEffectparticleSystem;
 
         private void CreateFireEffectInstance()
         {
-            /*switch (flammable.Data.effectType)
-            {
-                case FireEffectType.BIG:
-                    fireEffectInstance = (GameObject)Instantiate(ResourceRegistry.FirePrefab, transform);
-                    break;
-                case FireEffectType.SMALL:
-                    fireEffectInstance = (GameObject)Instantiate(ResourceRegistry.SmallFirePrefab, transform);
-                    break;
-            }
-            fireEffectInstance.transform.localPosition = Vector3.zero;
-            fireEffectparticleSystem = fireEffectInstance.GetComponent<ParticleSystem>();*/
             Debug.Log("CLAIRESLOG:CreateFireEffectInstance()");
+            fireEffectInstance = Instantiate(ResourceRegistry.FirePrefab, transform);
+            fireEffectInstance.transform.localPosition = Vector3.zero;
+            fireEffectparticleSystem = fireEffectInstance.GetComponent<ParticleSystem>();    
         }
 
         private void OnEnable()

@@ -1,6 +1,7 @@
 ﻿using Assets.Gamelogic.FSM;
 using Improbable.Fire;
 using Improbable.Tree;
+using UnityEngine;
 
 namespace Assets.Gamelogic.Tree
 {
@@ -16,9 +17,13 @@ namespace Assets.Gamelogic.Tree
 
         public void Enter()
         {
+            Debug.Log("CLAIRESLOG: TreeBurnyState Enter()");
             flammable.Send(new Flammable.Update().SetCanBeIgnited(false));
 
             flammable.ComponentUpdated.Add(OnFlammableUpdated);
+            flammable.Send(new Flammable.Update().SetIsOnFire(true));
+
+
         }
 
         public void Tick()
@@ -33,6 +38,7 @@ namespace Assets.Gamelogic.Tree
 
         private void OnFlammableUpdated(Flammable.Update update)
         {
+            Debug.Log("CLAIRESLOG: TreeBurnyState OnFlammableUpdated()");
             if (HasBeenExtinguished(update))
             {
                 owner.TriggerTransition(TreeFSMState.HEALTHY);

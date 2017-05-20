@@ -80,8 +80,10 @@ namespace Assets.Gamelogic.Tree
 
         public void TransitionTo(TreeFSMState nextState)
         {
+            Debug.Log(string.Format("CLAIRESLOG: TreeStateMachine TransitionTo({0})", nextState));
             if (IsValidTransition(nextState))
             {
+                Debug.Log(string.Format("CLAIRESLOG: TreeStateMachine Changing state from {0} to {1}!", CurrentState, nextState));
                 states[CurrentState].Exit(false);
                 CurrentState = nextState;
                 states[CurrentState].Enter();
@@ -107,6 +109,8 @@ namespace Assets.Gamelogic.Tree
 
             if (IsValidTransition(newState))
             {
+                Debug.Log(string.Format("CLAIRESLOG: TreeStateMachine TriggerTransition({0}) is valid!", newState));
+
                 Data.currentState = newState;
 
                 var update = new TreeState.Update();

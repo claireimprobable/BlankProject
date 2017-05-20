@@ -159,6 +159,7 @@ namespace Assets.Gamelogic.Fire
         {
             if (!flammable.Data.isOnFire)
             {
+                Debug.Log("CLAIRESLOG: FlammableBehaviour IgniteUpdate()");
                 var update = new Flammable.Update();
                 update.SetIsOnFire(true).SetCanBeIgnited(false);
                 flammable.Send(update);

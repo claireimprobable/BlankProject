@@ -1,10 +1,12 @@
-﻿using Assets.Gamelogic.Core;
+﻿using System;
+using Assets.Gamelogic.Core;
 using Assets.Gamelogic.Fire;
 using Improbable.Fire;
 using Improbable.Tree;
 using Improbable.Unity;
 using Improbable.Unity.Visualizer;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Gamelogic.Tree
 {
@@ -17,16 +19,21 @@ namespace Assets.Gamelogic.Tree
         [SerializeField] private FlammableBehaviour flammableInterface;
 
         private TreeStateMachine stateMachine;
+        private Random Rng = new Random();
 
         private void Awake()
         {
+            Debug.Log("CLAIRESLOG: Tree is Awake()!");
             flammableInterface = GetComponentIfUnassigned(flammableInterface);
         }
 
         private void OnEnable()
         {
+            Debug.Log("CLAIRESLOG: Tree OnEnable(), creating tree with state=" + tree.Data.currentState);
             stateMachine = new TreeStateMachine(tree, flammableInterface, flammable);
             stateMachine.OnEnable(tree.Data.currentState);
+
+            InvokeRepeating("SpontaneouslyCombust", 1.0f, 1.0f);
         }
 
         private void OnDisable()
@@ -49,6 +56,22 @@ namespace Assets.Gamelogic.Tree
                 }
             }
             return componentReference;
+        }
+
+        private void SpontaneouslyCombust()
+        {
+            //var chance = Convert.ToDouble(SimulationSettings.TreeSpontaneouslyCombustChance);
+            //var random = Math.Round(Rng.NextDouble(), 3);
+            //var diff = chance - random;
+
+            if (Random.Range(0f, 1f) < SimulationSettings.TreeSpontaneouslyCombustChance)
+            {
+                if (stateMachine.IsValidTransition(TreeFSMState.BURNY))
+                {
+                    Debug.Log("CLAIRESLOG: Tree SpontaneouslyCombust()! Fire time!");
+                    stateMachine.TransitionTo(TreeFSMState.BURNY);
+                }
+            }      
         }
     }
 }

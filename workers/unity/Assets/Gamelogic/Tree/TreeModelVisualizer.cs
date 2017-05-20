@@ -14,12 +14,10 @@ namespace Assets.Gamelogic.Tree
 
         [SerializeField] private GameObject HealthyTree;
         [SerializeField] private GameObject BurntTree;
-        //[SerializeField] private Mesh[] meshes;
 
         private void OnEnable()
         {
-            Debug.Log("CLAIRESLOG: I am a tree! OnEnable()");
-            //SetupTreeModel();
+            Debug.Log("CLAIRESLOG: TreeModelVisualiser OnEnable()");
             treeState.ComponentUpdated.Add(UpdateVisualization);
             ShowTreeModel(treeState.Data.currentState);
 
@@ -27,17 +25,9 @@ namespace Assets.Gamelogic.Tree
 
         private void OnDisable()
         {
-            Debug.Log("CLAIRESLOG: I am a tree! OnDisable()");
+            Debug.Log("CLAIRESLOG: TreeModelVisualiser OnDisable()");
             treeState.ComponentUpdated.Remove(UpdateVisualization);
         }
-
-        /*private void SetupTreeModel()
-        {
-            //var treeModel = meshes[(int)treeState.Data.treeType];
-            var treeModel = meshes[0];
-            HealthyTree.GetComponent<MeshFilter>().mesh = treeModel;
-            //HealthyTree = Instantiate(HealthyTree, );
-        }*/
 
         private void UpdateVisualization(TreeState.Update newState)
         {
@@ -46,19 +36,20 @@ namespace Assets.Gamelogic.Tree
 
         private void ShowTreeModel(TreeFSMState currentState)
         {
-            Debug.Log("CLAIRESLOG: I am a tree! ShowTreeModel()");
+            Debug.Log("CLAIRESLOG: TreeModelVisualiser ShowTreeModel() current state: " + currentState);
             switch (currentState)
             {
                 case TreeFSMState.HEALTHY:
-                    StartCoroutine(TimerUtils.WaitAndPerform(SimulationSettings.TreeExtinguishTimeBuffer, () =>
+                    StartCoroutine(TimerUtils.WaitAndPerform(SimulationSettings.ClaireIsImpatient, () =>
                     {
                         TransitionTo(HealthyTree);
                     }));
                     break;
                 case TreeFSMState.BURNY:
-                    StartCoroutine(TimerUtils.WaitAndPerform(SimulationSettings.TreeIgnitionTimeBuffer, () =>
+                    StartCoroutine(TimerUtils.WaitAndPerform(SimulationSettings.ClaireIsImpatient, () =>
                     {
-                        TransitionTo(HealthyTree);
+                        Debug.Log("CLAIRESLOG: TreeModelVisualiser ShowTreeModel() TRANSITIONING TO BURNY!");
+                        TransitionTo(BurntTree);
                     }));
                     break;
             }
@@ -66,12 +57,14 @@ namespace Assets.Gamelogic.Tree
 
         private void TransitionTo(GameObject newModel)
         {
+            Debug.Log("CLAIRESLOG: TreeModelVisualiser TransitionTo()");
             HideAllModels();
             newModel.SetActive(true);
         }
 
         private void HideAllModels()
         {
+            Debug.Log("CLAIRESLOG: TreeModelVisualiser HideAllModels()");
             HealthyTree.SetActive(false);
             BurntTree.SetActive(false);
         }

@@ -22,6 +22,8 @@ namespace Assets.Gamelogic.Core
         public static readonly float PlayerCreatorQueryRetrySecs = 4;
         public static readonly float PlayerEntityCreationRetrySecs = 4;
 
+        public static float ClaireIsImpatient = 1f;
+
         // Fire
         public static float FireSpreadInterval = 1f;
         public static float FireSpreadRadius = 6f;
@@ -32,13 +34,16 @@ namespace Assets.Gamelogic.Core
 
         // Tree
         public static int TreeMaxHealth = 3;
-        public static int HarvestReturnQuantity = 1;
         public static int TreeBurningTimeSecs = 10;
         public static int TreeStumpRegrowthTimeSecs = 300;
         public static int BurntTreeRegrowthTimeSecs = 600;
         public static float TreeIgnitionTimeBuffer = 0.4f;
         public static float TreeExtinguishTimeBuffer = 1f;
         public static float TreeCutDownTimeBuffer = 1f;
+        public static float TreeSpontaneouslyCombustChance = 0.03f;
+
+        // Resource Prefab Paths
+        public static string FireEffectPrefabPath = "Particles/Fire";
 
         // Component Updates
         public static int TransformUpdatesToSkipBetweenSends = 5;

@@ -32,7 +32,7 @@ namespace Assets.Gamelogic.EntityTemplates
         {
             var playerTemplate = new SnapshotEntity { Prefab = SimulationSettings.PlayerPrefabName };
 
-            playerTemplate.Add(new WorldTransform.Data(Coordinates.ZERO, new Quaternion(0, 0, 0, 0)));
+            playerTemplate.Add(new WorldTransform.Data(new Coordinates(0, 4, 0), new Quaternion(0, 0, 0, 0)));
             playerTemplate.Add(new ClientConnection.Data());
             playerTemplate.Add(new HeartbeatCounter.Data(SimulationSettings.TotalHeartbeatsBeforeTimeout));
 
@@ -66,10 +66,12 @@ namespace Assets.Gamelogic.EntityTemplates
 
             treeTemplate.Add(new WorldTransform.Data(coordinates, new Quaternion(0, 0, 0, 0)));
             treeTemplate.Add(new TreeState.Data(TreeFSMState.HEALTHY));
+            treeTemplate.Add(new Flammable.Data(false, true));
 
             var acl = Acl.Build()
                 .SetReadAccess(CommonRequirementSets.PhysicsOrVisual)
                 .SetWriteAccess<WorldTransform>(CommonRequirementSets.PhysicsOnly)
+                .SetWriteAccess<Flammable>(CommonRequirementSets.PhysicsOnly)
                 .SetWriteAccess<TreeState>(CommonRequirementSets.PhysicsOnly);
             treeTemplate.SetAcl(acl);
 
