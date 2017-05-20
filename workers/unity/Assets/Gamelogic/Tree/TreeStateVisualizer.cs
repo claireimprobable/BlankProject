@@ -1,4 +1,4 @@
-﻿using Improbable.Tree;
+﻿/*using Improbable.Tree;
 using Improbable.Unity.Visualizer;
 using UnityEngine;
 
@@ -10,4 +10,4 @@ namespace Assets.Gamelogic.Tree
         private TreeState.Reader treeState;
         public TreeState.Reader CurrentState { get { return treeState; } }
     }
-}
+}*/

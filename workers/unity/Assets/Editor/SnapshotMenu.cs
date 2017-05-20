@@ -26,8 +26,8 @@ namespace Assets.Editor
 
             //new Coordinates(0, 0, 5),
 
-		    var rows = 1;
-		    var columns = 1;
+		    var rows = 5;
+		    var columns = 5;
 		    for (int i = 0; i < rows; i++)
 		    {
 		        for (int j = 0; j < columns; j++)

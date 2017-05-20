@@ -1,0 +1,9 @@
+package improbable.player;
+
+type Shoot {}
+
+component PlayerControls {
+  id = 1105;
+
+  event Shoot shoot;
+}

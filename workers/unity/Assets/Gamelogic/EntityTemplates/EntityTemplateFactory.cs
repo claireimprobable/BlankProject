@@ -1,6 +1,5 @@
 ﻿using Assets.Gamelogic.Core;
 using Improbable.Core;
-using Improbable.Fire;
 using Improbable.Math;
 using Improbable.Player;
 using Improbable.Tree;
@@ -65,13 +64,11 @@ namespace Assets.Gamelogic.EntityTemplates
             var treeTemplate = new SnapshotEntity { Prefab = SimulationSettings.TreePrefabName };
 
             treeTemplate.Add(new WorldTransform.Data(coordinates, new Quaternion(0, 0, 0, 0)));
-            treeTemplate.Add(new TreeState.Data(TreeFSMState.HEALTHY));
-            treeTemplate.Add(new Flammable.Data(false, true));
+            treeTemplate.Add(new TreeState.Data(TreeStatus.HEALTHY));
 
             var acl = Acl.Build()
                 .SetReadAccess(CommonRequirementSets.PhysicsOrVisual)
                 .SetWriteAccess<WorldTransform>(CommonRequirementSets.PhysicsOnly)
-                .SetWriteAccess<Flammable>(CommonRequirementSets.PhysicsOnly)
                 .SetWriteAccess<TreeState>(CommonRequirementSets.PhysicsOnly);
             treeTemplate.SetAcl(acl);
 

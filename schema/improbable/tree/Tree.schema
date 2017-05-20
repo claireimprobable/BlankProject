@@ -1,0 +1,16 @@
+package improbable.tree;
+
+enum TreeStatus {
+  HEALTHY = 0;
+  BURNY = 1;
+  DEAD = 2;
+}
+
+type IgniteRequest {}
+type IgniteResponse {}
+
+component TreeState {
+  id = 1600;
+  TreeStatus status = 2;
+  command IgniteResponse ignite(IgniteRequest);
+}

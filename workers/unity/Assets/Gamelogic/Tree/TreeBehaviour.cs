@@ -1,7 +1,4 @@
-﻿using System;
-using Assets.Gamelogic.Core;
-using Assets.Gamelogic.Fire;
-using Improbable.Fire;
+﻿using Assets.Gamelogic.Core;
 using Improbable.Tree;
 using Improbable.Unity;
 using Improbable.Unity.Visualizer;
@@ -13,65 +10,20 @@ namespace Assets.Gamelogic.Tree
     [WorkerType(WorkerPlatform.UnityWorker)]
     public class TreeBehaviour : MonoBehaviour
     {
-        [Require] private TreeState.Writer tree;
-        [Require] private Flammable.Writer flammable;
+        [Require] private TreeState.Writer treeStateWriter;
 
-        [SerializeField] private FlammableBehaviour flammableInterface;
-
-        private TreeStateMachine stateMachine;
-        private Random Rng = new Random();
-
-        private void Awake()
+        // for spontaneous combustion
+        void FixedUpdate()
         {
-            Debug.Log("CLAIRESLOG: Tree is Awake()!");
-            flammableInterface = GetComponentIfUnassigned(flammableInterface);
-        }
+            Debug.Log(string.Format("TreeBehaviour: FixedUpdate(), my current status is {0}", treeStateWriter.Data.status));
 
-        private void OnEnable()
-        {
-            Debug.Log("CLAIRESLOG: Tree OnEnable(), creating tree with state=" + tree.Data.currentState);
-            stateMachine = new TreeStateMachine(tree, flammableInterface, flammable);
-            stateMachine.OnEnable(tree.Data.currentState);
-
-            InvokeRepeating("SpontaneouslyCombust", 1.0f, 1.0f);
-        }
-
-        private void OnDisable()
-        {
-            stateMachine.OnDisable();
-        }
-
-        private FlammableBehaviour GetComponentIfUnassigned(FlammableBehaviour componentReference)
-        {
-            if (componentReference == null)
+            var probability = SimulationSettings.TreeSpontaneouslyCombustChance;
+            var randomRange = Random.Range(0f, 1f);
+            if (randomRange < probability && treeStateWriter.Data.status == TreeStatus.HEALTHY)
             {
-                componentReference = gameObject.GetComponent<FlammableBehaviour>();
-                if (componentReference == null)
-                {
-                    Debug.LogError("Failed to get component reference on " + gameObject.name);
-                }
-                else
-                {
-                    Debug.LogWarning("Component reference " + componentReference + " on " + gameObject.name + " wasn't serialized but recovered via GetComponent call");
-                }
+                Debug.Log(string.Format("Random number {0} is less than probability {1}. Setting TreeStatus to BURNY!", randomRange, probability));
+                treeStateWriter.Send(new TreeState.Update().SetStatus(TreeStatus.BURNY));
             }
-            return componentReference;
-        }
-
-        private void SpontaneouslyCombust()
-        {
-            //var chance = Convert.ToDouble(SimulationSettings.TreeSpontaneouslyCombustChance);
-            //var random = Math.Round(Rng.NextDouble(), 3);
-            //var diff = chance - random;
-
-            if (Random.Range(0f, 1f) < SimulationSettings.TreeSpontaneouslyCombustChance)
-            {
-                if (stateMachine.IsValidTransition(TreeFSMState.BURNY))
-                {
-                    Debug.Log("CLAIRESLOG: Tree SpontaneouslyCombust()! Fire time!");
-                    stateMachine.TransitionTo(TreeFSMState.BURNY);
-                }
-            }      
         }
     }
 }
