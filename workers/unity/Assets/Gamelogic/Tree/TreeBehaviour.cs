@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Gamelogic.Core;
+using Assets.Gamelogic.Utils;
 using Improbable;
 using Improbable.Entity.Component;
 using Improbable.Tree;
@@ -31,7 +32,7 @@ namespace Assets.Gamelogic.Tree
 
             if (treeStateWriter.Data.status == TreeStatus.BURNY)
             {
-                SpreadFire();
+                StartCoroutine(TimerUtils.WaitAndPerform(SimulationSettings.FireSpreadInterval, SpreadFire));
             }
         }
 

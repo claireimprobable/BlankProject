@@ -27,9 +27,7 @@ namespace Assets.Gamelogic.Core
         // Fire
         public static float FireSpreadInterval = 1f;
         public static float FireSpreadRadius = 6f;
-        public static float FireSpreadProbability = 0.5f;
-        public static float DefaultFireDamageInterval = 1f;
-        public static int FireDamagePerTick = 1;
+        public static float FireSpreadProbability = 0.4f;
         public static float OnFireMovementSpeedIncreaseFactor = 3f;
 
         // Tree
@@ -37,9 +35,6 @@ namespace Assets.Gamelogic.Core
         public static int TreeBurningTimeSecs = 10;
         public static int TreeStumpRegrowthTimeSecs = 300;
         public static int BurntTreeRegrowthTimeSecs = 600;
-        public static float TreeIgnitionTimeBuffer = 0.4f;
-        public static float TreeExtinguishTimeBuffer = 1f;
-        public static float TreeCutDownTimeBuffer = 1f;
         public static float TreeSpontaneouslyCombustChance = 0.00001f;
 
         // Resource Prefab Paths
