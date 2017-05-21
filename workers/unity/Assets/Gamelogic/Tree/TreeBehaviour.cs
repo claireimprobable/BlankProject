@@ -42,7 +42,6 @@ namespace Assets.Gamelogic.Tree
             var randomRange = Random.Range(0f, 1f);
             if (randomRange < probability)
             {
-                Debug.Log(string.Format("Random number {0} is less than probability {1}. Setting TreeStatus to BURNY!", randomRange, probability));
                 treeStateWriter.Send(new TreeState.Update().SetStatus(TreeStatus.BURNY));
             }
         }
@@ -82,13 +81,11 @@ namespace Assets.Gamelogic.Tree
 
         private void SpreadToNeighbor(EntityId neighborEntityId)
         {
-            Debug.Log("Gonna spread some fire!");
-            SpatialOS.Commands.SendCommand(treeStateWriter, TreeState.Commands.Ignite.Descriptor, new IgniteRequest(), neighborEntityId);
+           SpatialOS.Commands.SendCommand(treeStateWriter, TreeState.Commands.Ignite.Descriptor, new IgniteRequest(), neighborEntityId);
         }
 
         private IgniteResponse OnIgnite(IgniteRequest request, ICommandCallerInfo callerInfo)
         {
-            Debug.Log("Processed ignite request.");
             if (treeStateWriter.Data.status == TreeStatus.HEALTHY)
             {
                 treeStateWriter.Send(new TreeState.Update().SetStatus(TreeStatus.BURNY));

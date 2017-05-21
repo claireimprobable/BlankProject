@@ -36,7 +36,7 @@ namespace Assets.Gamelogic.Player
             UpdatePosition(h, v);
 
             // Turn the player to face the mouse cursor.
-            UpdateRotation();
+            //UpdateRotation();
         }
 
         void UpdatePosition(float h, float v)
