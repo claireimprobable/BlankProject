@@ -1,4 +1,5 @@
-﻿using Improbable.Unity;
+﻿using Assets.Gamelogic.Core;
+using Improbable.Unity;
 using Improbable.Unity.Visualizer;
 using UnityEngine;
 using Improbable.Player;
@@ -10,10 +11,8 @@ namespace Assets.Gamelogic.Player
         [Require]
         private ClientConnection.Writer ClientConnectionWriter;
 
-        private float movementSpeed = 10.0f;
         private Vector3 movementDirection;
         private Rigidbody playerRigidbody;
-        private float camRayLength = 100f;
 
         void Awake()
         {
@@ -22,11 +21,9 @@ namespace Assets.Gamelogic.Player
 
         void FixedUpdate()
         {
-            // Store the input axes.
-            float h = Input.GetAxisRaw("Horizontal");
-            float v = Input.GetAxisRaw("Vertical");
+            var h = Input.GetAxisRaw("Horizontal");
+            var v = Input.GetAxisRaw("Vertical");
 
-            // Move the player around the scene.
             UpdatePosition(h, v);
         }
 
@@ -36,7 +33,7 @@ namespace Assets.Gamelogic.Player
             movementDirection.Set(h, 0f, v);
 
             // Normalise the movement vector and make it proportional to the speed per second.
-            movementDirection = movementDirection.normalized * movementSpeed * Time.deltaTime;
+            movementDirection = movementDirection.normalized * SimulationSettings.MovementSpeed * Time.deltaTime;
 
             // Move the player to it's current position plus the movement.
             playerRigidbody.MovePosition(transform.position + movementDirection);

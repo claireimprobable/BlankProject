@@ -17,7 +17,6 @@ namespace Assets.Gamelogic.Tree
     {
         [Require] private TreeState.Writer treeStateWriter;
 
-
         private void OnEnable()
         {
             treeStateWriter.CommandReceiver.OnIgnite.RegisterResponse(OnIgnite);
@@ -32,16 +31,11 @@ namespace Assets.Gamelogic.Tree
 
             if (treeStateWriter.Data.status == TreeStatus.BURNY)
             {
-                Debug.Log("Tree status changed to Burny.");
-                StartCoroutine(TimerUtils.WaitAndPerform(SimulationSettings.FireSpreadInterval, () =>
-                {
-                    //Debug.Log("SpreadFire() being called in " + SimulationSettings.FireSpreadInterval + " seconds.");
-                    SpreadFire();
-                }));
+                //Debug.Log("Tree status changed to Burny.");
+                StartCoroutine(TimerUtils.WaitAndPerform(SimulationSettings.FireSpreadInterval, SpreadFire));
 
                 StartCoroutine(TimerUtils.WaitAndPerform(SimulationSettings.TreeBurningTimeSecs, () =>
                 {
-                    //Debug.Log("ChangeStatus(TreeStatus.BALDY) being called in " + SimulationSettings.TreeBurningTimeSecs + " seconds.");
                     ChangeStatus(TreeStatus.BALDY);
                 }));
             }
@@ -62,11 +56,11 @@ namespace Assets.Gamelogic.Tree
             var probabilityToSpread = SimulationSettings.FireSpreadProbability;
             if (Random.Range(0f, 1f) < probabilityToSpread)
             {
-                Collider[] neighbors = FindNeighbors(SimulationSettings.FireSpreadRadius);
+                var neighbors = FindNeighbors(SimulationSettings.FireSpreadRadius);
                 Debug.Log("Gonna spread some fire! Found " + neighbors.Length + " neighbors.");
                 if (neighbors.Length != 0)
                 {
-                    Collider randomNeighbor = neighbors[Random.Range(0, neighbors.Length)];
+                    var randomNeighbor = neighbors[Random.Range(0, neighbors.Length)];
                     SpreadToNeighbor(randomNeighbor.gameObject.EntityId());
                 }
             }
@@ -74,11 +68,10 @@ namespace Assets.Gamelogic.Tree
 
         private Collider[] FindNeighbors(float radius)
         {
-            List<Collider> neighbors = new List<Collider>(
-                Physics.OverlapSphere(transform.position, radius));
+            var neighbors = new List<Collider>(Physics.OverlapSphere(transform.position, radius));
 
             // Remove this tree so we only consider neighbors.
-            for (int i = 0; i < neighbors.Count; i++)
+            for (var i = 0; i < neighbors.Count; i++)
             {
                 if (neighbors[i].gameObject.Equals(gameObject))
                 {
@@ -86,7 +79,6 @@ namespace Assets.Gamelogic.Tree
                     break;
                 }
             }
-
             return neighbors.ToArray();
         }
 

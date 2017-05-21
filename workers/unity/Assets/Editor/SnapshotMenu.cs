@@ -24,19 +24,16 @@ namespace Assets.Editor
 		    snapshotEntities.Add(new EntityId(currentEntityId++), EntityTemplateFactory.CreatePlayerCreatorTemplate());
 		    snapshotEntities.Add(new EntityId(currentEntityId++), EntityTemplateFactory.CreateCubeTemplate());
 
-            //new Coordinates(0, 0, 5),
+		    const int rows = 10;
+		    const int columns = 10;
 
-		    var rows = 10;
-		    var columns = 10;
-
-		    for (int i = 0; i < rows; i++)
+		    for (var i = 0; i < rows; i++)
 		    {
-		        for (int j = 0; j < columns; j++)
+		        for (var j = 0; j < columns; j++)
 		        {
 		            snapshotEntities.Add(new EntityId(currentEntityId++), EntityTemplateFactory.CreateTreeTemplate(new Coordinates(5*i, 0, 5*j)));
                 }
 		    }
-
             SaveSnapshot(snapshotEntities);
 		}
 

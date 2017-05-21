@@ -1,5 +1,4 @@
-﻿using Assets.Gamelogic.Utils;
-using Improbable.Tree;
+﻿using Improbable.Tree;
 using Improbable.Unity;
 using Improbable.Unity.Visualizer;
 using UnityEngine;
@@ -15,11 +14,10 @@ namespace Assets.Gamelogic.Tree
         [SerializeField] private GameObject BaldyTree;
         [SerializeField] private GameObject FireEffectPrefab;
 
-        private GameObject fireEffect;
+        private GameObject _fireEffect;
 
         private void OnEnable()
         {
-            Debug.Log(string.Format("CLAIRESLOG: TreeVisualiser OnEnable()"));
             treeState.StatusUpdated.AddAndInvoke(OnStatusUpdated);
         }
 
@@ -53,15 +51,15 @@ namespace Assets.Gamelogic.Tree
         private void SetFireEffect(bool isOnFire)
         {
             MaybeInitFire();
-            fireEffect.SetActive(isOnFire);
+            _fireEffect.SetActive(isOnFire);
         }
 
         private void MaybeInitFire()
         {
-            if (fireEffect == null)
+            if (_fireEffect == null)
             {
-                fireEffect = Instantiate(FireEffectPrefab, transform.position, transform.rotation, transform);
-                fireEffect.SetActive(false);
+                _fireEffect = Instantiate(FireEffectPrefab, transform.position, transform.rotation, transform);
+                _fireEffect.SetActive(false);
             }
         }
     }

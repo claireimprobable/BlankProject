@@ -13,25 +13,24 @@ namespace Assets.Gamelogic.Core
         public static readonly int TargetServerFramerate = 60;
         public static readonly int FixedFramerate = 20;
 
-        public static readonly float HeartbeatCheckIntervalSecs = 3;
-        public static readonly uint TotalHeartbeatsBeforeTimeout = 3;
-        public static readonly float HeartbeatSendingIntervalSecs = 3;
-
-        public static readonly float ClientConnectionTimeoutSecs = 7;
-
         public static readonly float PlayerCreatorQueryRetrySecs = 4;
         public static readonly float PlayerEntityCreationRetrySecs = 4;
 
-        public static float ClaireIsImpatient = 1f;
+        // Heartbeat
+        public static readonly float HeartbeatCheckIntervalSecs = 3;
+        public static readonly uint TotalHeartbeatsBeforeTimeout = 3;
+        public static readonly float HeartbeatSendingIntervalSecs = 3;
+        public static readonly float ClientConnectionTimeoutSecs = 7;
+
+        // Player
+        public static float MovementSpeed = 10.0f;
 
         // Fire
-        public static float FireSpreadInterval = 1f;
+        public static float FireSpreadInterval = 5f;
         public static float FireSpreadRadius = 6f;
-        public static float FireSpreadProbability = 0.4f;
-        public static float OnFireMovementSpeedIncreaseFactor = 3f;
+        public static float FireSpreadProbability = 0.04f;
 
         // Tree
-        public static int TreeMaxHealth = 3;
         public static int TreeBurningTimeSecs = 10;
         public static int TreeStumpRegrowthTimeSecs = 300;
         public static int BurntTreeRegrowthTimeSecs = 600;
