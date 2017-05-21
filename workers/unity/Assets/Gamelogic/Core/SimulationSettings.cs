@@ -35,6 +35,7 @@ namespace Assets.Gamelogic.Core
         public static int TreeStumpRegrowthTimeSecs = 300;
         public static int BurntTreeRegrowthTimeSecs = 600;
         public static float TreeSpontaneouslyCombustChance = 0.00001f;
+        public static float TreeDensity = 0.2f;
 
         // Resource Prefab Paths
         public static string FireEffectPrefabPath = "Particles/Fire";

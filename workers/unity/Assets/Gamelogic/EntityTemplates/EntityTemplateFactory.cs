@@ -59,11 +59,11 @@ namespace Assets.Gamelogic.EntityTemplates
             return cubeTemplate;
         }
 
-        public static SnapshotEntity CreateTreeTemplate(Coordinates coordinates)
+        public static SnapshotEntity CreateTreeTemplate(Coordinates coordinates, Quaternion rotation)
         {
             var treeTemplate = new SnapshotEntity { Prefab = SimulationSettings.TreePrefabName };
 
-            treeTemplate.Add(new WorldTransform.Data(coordinates, new Quaternion(0, 0, 0, 0)));
+            treeTemplate.Add(new WorldTransform.Data(coordinates, rotation));
             treeTemplate.Add(new TreeState.Data(TreeStatus.HEALTHY));
 
             var acl = Acl.Build()
