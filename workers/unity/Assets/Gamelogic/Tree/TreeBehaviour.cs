@@ -32,7 +32,18 @@ namespace Assets.Gamelogic.Tree
 
             if (treeStateWriter.Data.status == TreeStatus.BURNY)
             {
-                StartCoroutine(TimerUtils.WaitAndPerform(SimulationSettings.FireSpreadInterval, SpreadFire));
+                Debug.Log("Tree status changed to Burny.");
+                StartCoroutine(TimerUtils.WaitAndPerform(SimulationSettings.FireSpreadInterval, () =>
+                {
+                    //Debug.Log("SpreadFire() being called in " + SimulationSettings.FireSpreadInterval + " seconds.");
+                    SpreadFire();
+                }));
+
+                StartCoroutine(TimerUtils.WaitAndPerform(SimulationSettings.TreeBurningTimeSecs, () =>
+                {
+                    //Debug.Log("ChangeStatus(TreeStatus.BALDY) being called in " + SimulationSettings.TreeBurningTimeSecs + " seconds.");
+                    ChangeStatus(TreeStatus.BALDY);
+                }));
             }
         }
 
@@ -91,6 +102,17 @@ namespace Assets.Gamelogic.Tree
                 treeStateWriter.Send(new TreeState.Update().SetStatus(TreeStatus.BURNY));
             }
             return new IgniteResponse();
+        }
+
+        private void ChangeStatus(TreeStatus newStatus)
+        {
+            // Since coroutines do not stop when a component is disabled, we need this check.
+            if (treeStateWriter == null || !treeStateWriter.HasAuthority)
+            {
+                Debug.Log("Worker lost authority during state wait time.");
+                return;
+            }
+            treeStateWriter.Send(new TreeState.Update().SetStatus(newStatus));
         }
     }
 }

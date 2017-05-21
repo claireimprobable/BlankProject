@@ -1,4 +1,5 @@
-﻿using Improbable.Tree;
+﻿using Assets.Gamelogic.Utils;
+using Improbable.Tree;
 using Improbable.Unity;
 using Improbable.Unity.Visualizer;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace Assets.Gamelogic.Tree
         [Require] private TreeState.Reader treeState;
 
         [SerializeField] private GameObject HealthyTree;
-        [SerializeField] private GameObject BurntTree;
+        [SerializeField] private GameObject BaldyTree;
         [SerializeField] private GameObject FireEffectPrefab;
 
         private GameObject fireEffect;
@@ -29,34 +30,25 @@ namespace Assets.Gamelogic.Tree
 
         private void OnStatusUpdated(TreeStatus status)
         {
-            Debug.Log(string.Format("CLAIRESLOG: TreeVisualiser status updated to: {0}", status));
             SetFireEffect(status == TreeStatus.BURNY);
             switch (status)
             {
-                /*case TreeStatus.HEALTHY:
-                    TransitionTo(HealthyTree);
-                    break;*/
                 case TreeStatus.BURNY:
-                    //TransitionTo(BurntTree);
+                    SetFireEffect(true);
+                    break;
+                case TreeStatus.BALDY:
+                    SetFireEffect(false);
                     HideAllModels();
-                    BurntTree.SetActive(true);
+                    BaldyTree.SetActive(true);
                     break;
             }
-        }
-
-        private void TransitionTo(GameObject newModel)
-        {
-            HideAllModels();
-            newModel.SetActive(true);
         }
 
         private void HideAllModels()
         {
             HealthyTree.SetActive(false);
-            BurntTree.SetActive(false);
+            BaldyTree.SetActive(false);
         }
-
-
 
         private void SetFireEffect(bool isOnFire)
         {
