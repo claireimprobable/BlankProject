@@ -12,7 +12,7 @@ namespace Assets.Gamelogic.Player
     public class SendClientConnection : MonoBehaviour
     {
         [Require]
-        private ClientConnection.Writer ClientConnectionWriter;
+        public ClientConnection.Writer ClientConnectionWriter;
 
         private Coroutine heartbeatCoroutine;
         private void OnEnable()

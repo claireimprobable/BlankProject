@@ -8,8 +8,7 @@ namespace Assets.Gamelogic.Player
     [WorkerType(WorkerPlatform.UnityClient)]
     public class PlayerMovementController : MonoBehaviour
     {
-        [Require]
-        private ClientConnection.Writer ClientConnectionWriter;
+        [Require] private ClientConnection.Writer ClientConnectionWriter;
 
         private Vector3 movementDirection;
         private Rigidbody playerRigidbody;
