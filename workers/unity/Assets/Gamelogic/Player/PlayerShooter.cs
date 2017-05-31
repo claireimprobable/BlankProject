@@ -15,10 +15,11 @@ namespace Assets.Gamelogic.Player
         public ParticleSystem projectilePrefab;
         public float projectileVelocity = 1.0f;
 
+        private Vector3 _myCloudOffset = new Vector3(1, -4, 0);
+
         // Update is called once per frame
         void Update()
         {
-            Debug.Log("PlayerShooter Update()");
             if (Input.GetButtonUp("Fire1"))
             {
                 Debug.Log("Shooting!");
@@ -28,7 +29,8 @@ namespace Assets.Gamelogic.Player
 
         private void ShootProjectile()
         {
-            ParticleSystem projectile = Instantiate(projectilePrefab, transform.position + transform.forward, transform.rotation);
+            //ParticleSystem projectile = Instantiate(projectilePrefab, transform.position + transform.forward, transform.rotation);
+            var projectile = Instantiate(projectilePrefab, transform.position + _myCloudOffset, transform.rotation);
             //projectile.velocity = transform.forward * projectileVelocity;
             //projectile.AddForce(-transform.up * projectileVelocity);
             playerControlsWriter.Send(new PlayerControls.Update().AddShoot(new Shoot()));
