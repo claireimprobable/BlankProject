@@ -23,8 +23,7 @@ namespace Assets.Editor
 		    var currentEntityId = 1;
 
 		    snapshotEntities.Add(new EntityId(currentEntityId++), EntityTemplateFactory.CreatePlayerCreatorTemplate());
-		    snapshotEntities.Add(new EntityId(currentEntityId++), EntityTemplateFactory.CreateCubeTemplate());
-
+		    
             const int area = 10;        
 
 		    for (var i = 0; i < area; i++)

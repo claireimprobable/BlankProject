@@ -47,20 +47,6 @@ namespace Assets.Gamelogic.EntityTemplates
             return playerTemplate;
         }
 
-        public static SnapshotEntity CreateCubeTemplate()
-        {
-            var cubeTemplate = new SnapshotEntity { Prefab = SimulationSettings.CubePrefabName };
-
-            cubeTemplate.Add(new WorldTransform.Data(new Coordinates(0, 0, 5), new Quaternion(0, 0, 0, 0)));
-
-            var acl = Acl.Build()
-                .SetReadAccess(CommonRequirementSets.PhysicsOrVisual)
-                .SetWriteAccess<WorldTransform>(CommonRequirementSets.PhysicsOnly);
-            cubeTemplate.SetAcl(acl);
-
-            return cubeTemplate;
-        }
-
         public static SnapshotEntity CreateTreeTemplate(Coordinates coordinates, Quaternion rotation)
         {
             var treeTemplate = new SnapshotEntity { Prefab = SimulationSettings.TreePrefabName };

@@ -31,7 +31,6 @@ namespace Assets.Gamelogic.Tree
 
             if (treeStateWriter.Data.status == TreeStatus.BURNY)
             {
-                //Debug.Log("Tree status changed to Burny.");
                 StartCoroutine(TimerUtils.WaitAndPerform(SimulationSettings.FireSpreadInterval, SpreadFire));
 
                 StartCoroutine(TimerUtils.WaitAndPerform(SimulationSettings.TreeBurningTimeSecs, () =>

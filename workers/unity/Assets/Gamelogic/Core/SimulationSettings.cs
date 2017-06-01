@@ -6,7 +6,6 @@ namespace Assets.Gamelogic.Core
     {
         public static readonly string PlayerPrefabName = "Player";
         public static readonly string PlayerCreatorPrefabName = "PlayerCreator";
-        public static readonly string CubePrefabName = "Cube";
         public static readonly string TreePrefabName = "Tree";
 
         public static readonly int TargetClientFramerate = 60;
@@ -34,7 +33,7 @@ namespace Assets.Gamelogic.Core
         public static int TreeBurningTimeSecs = 10;
         public static int TreeStumpRegrowthTimeSecs = 300;
         public static int BurntTreeRegrowthTimeSecs = 600;
-        public static float TreeSpontaneouslyCombustChance = 0.00001f;
+        public static float TreeSpontaneouslyCombustChance = 0.0000001f;
         public static float TreeDensity = 0.2f;
 
         // Resource Prefab Paths
